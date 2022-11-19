@@ -1,0 +1,172 @@
+{
+  "ipcMode": null,
+  "executionRoleArn": "arn:aws:iam::646717423341:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "dnsSearchDomains": null,
+      "environmentFiles": null,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "secretOptions": null,
+        "options": {
+          "awslogs-group": "/ecs/inhousebot",
+          "awslogs-region": "us-west-2",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "entryPoint": [],
+      "portMappings": [],
+      "command": [],
+      "linuxParameters": null,
+      "cpu": 0,
+      "environment": [
+        {
+          "name": "INHOUSE_BOT_BOT_EMOJI",
+          "value": "<:BOT:1021910195112255508>"
+        },
+        {
+          "name": "INHOUSE_BOT_JGL_EMOJI",
+          "value": "<:JG:1021910144600244277>"
+        },
+        {
+          "name": "INHOUSE_BOT_MID_EMOJI",
+          "value": "<:MID:1021910129500749974>"
+        },
+        {
+          "name": "INHOUSE_BOT_SUP_EMOJI",
+          "value": "<:SUP:1021910164053438494>"
+        },
+        {
+          "name": "INHOUSE_BOT_TOP_EMOJI",
+          "value": "<:TOP:1021910091538104321>"
+        },
+        {
+          "name": "RUN_MIGRATIONS",
+          "value": "true"
+        }
+      ],
+      "resourceRequirements": null,
+      "ulimits": null,
+      "dnsServers": null,
+      "mountPoints": [],
+      "workingDirectory": null,
+      "secrets": [
+        {
+          "valueFrom": "arn:aws:secretsmanager:us-west-2:646717423341:secret:INHOUSE_BOT_CONNECTION_STRING-ubrVyO:DATABASE_STRING::",
+          "name": "INHOUSE_BOT_CONNECTION_STRING"
+        },
+        {
+          "valueFrom": "arn:aws:secretsmanager:us-west-2:646717423341:secret:INHOUSE_BOT_TOKEN-T4bvz5:TOKEN::",
+          "name": "INHOUSE_BOT_TOKEN"
+        },
+        {
+          "valueFrom": "arn:aws:secretsmanager:us-west-2:646717423341:secret:INHOUSE_BOT_RIOT_API_KEY-dvYl0V:TOKEN::",
+          "name": "INHOUSE_BOT_RIOT_API_KEY"
+        }
+      ],
+      "dockerSecurityOptions": null,
+      "memory": null,
+      "memoryReservation": null,
+      "volumesFrom": [],
+      "stopTimeout": null,
+      "image": "inhousebot:latest",
+      "startTimeout": null,
+      "firelensConfiguration": null,
+      "dependsOn": null,
+      "disableNetworking": null,
+      "interactive": null,
+      "healthCheck": null,
+      "essential": true,
+      "links": null,
+      "hostname": null,
+      "extraHosts": null,
+      "pseudoTerminal": null,
+      "user": null,
+      "readonlyRootFilesystem": null,
+      "dockerLabels": null,
+      "systemControls": null,
+      "privileged": null,
+      "name": "inhousebot"
+    }
+  ],
+  "placementConstraints": [],
+  "memory": "4096",
+  "taskRoleArn": "arn:aws:iam::646717423341:role/inhousebot_task",
+  "compatibilities": [
+    "EC2",
+    "FARGATE"
+  ],
+  "taskDefinitionArn": "arn:aws:ecs:us-west-2:646717423341:task-definition/inhousebot:1",
+  "family": "inhousebot",
+  "requiresAttributes": [
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.execution-role-awslogs"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.secrets.asm.environment-variables"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.execution-role-ecr-pull"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.task-eni"
+    }
+  ],
+  "pidMode": null,
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "networkMode": "awsvpc",
+  "runtimePlatform": {
+    "operatingSystemFamily": "LINUX",
+    "cpuArchitecture": null
+  },
+  "cpu": "2048",
+  "revision": 1,
+  "status": "ACTIVE",
+  "inferenceAccelerators": null,
+  "proxyConfiguration": null,
+  "volumes": []
+}

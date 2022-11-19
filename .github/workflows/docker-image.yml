@@ -34,3 +34,19 @@ jobs:
           echo "Pushing image to ECR..."
           docker push $ECR_REGISTRY/inhouse_bot:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/inhouse_bot:$IMAGE_TAG"
+
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: .github/workflows/task-definition.json
+          container-name: inhousebot
+          image: ${{ steps.build-image.outputs.image }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: inhousebot
+          cluster: inhousebot
+          # wait-for-service-stability: true

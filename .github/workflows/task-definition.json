@@ -22,23 +22,23 @@
       "environment": [
         {
           "name": "INHOUSE_BOT_BOT_EMOJI",
-          "value": "<:BOT:1021910195112255508>"
+          "value": "<:BOT_ROLE:1042955887289049149>"
         },
         {
           "name": "INHOUSE_BOT_JGL_EMOJI",
-          "value": "<:JG:1021910144600244277>"
+          "value": "<:JUNGLE_ROLE:1042955979475669083>"
         },
         {
           "name": "INHOUSE_BOT_MID_EMOJI",
-          "value": "<:MID:1021910129500749974>"
+          "value": "<:MID_ROLE:1042956006570860574>"
         },
         {
           "name": "INHOUSE_BOT_SUP_EMOJI",
-          "value": "<:SUP:1021910164053438494>"
+          "value": "<:SUPPORT_ROLE:1042955937473892445>"
         },
         {
           "name": "INHOUSE_BOT_TOP_EMOJI",
-          "value": "<:TOP:1021910091538104321>"
+          "value": "<:TOP_ROLE:1042955799892340846>"
         },
         {
           "name": "RUN_MIGRATIONS",

@@ -52,16 +52,16 @@
       "workingDirectory": null,
       "secrets": [
         {
-          "valueFrom": "arn:aws:secretsmanager:us-west-2:646717423341:secret:INHOUSE_BOT_CONNECTION_STRING-ubrVyO:DATABASE_STRING::",
+          "valueFrom": "arn:aws:ssm:us-west-2:646717423341:parameter/INHOUSE_BOT_CONNECTION_STRING",
           "name": "INHOUSE_BOT_CONNECTION_STRING"
         },
         {
-          "valueFrom": "arn:aws:secretsmanager:us-west-2:646717423341:secret:INHOUSE_BOT_TOKEN-T4bvz5:TOKEN::",
-          "name": "INHOUSE_BOT_TOKEN"
+          "valueFrom": "arn:aws:ssm:us-west-2:646717423341:parameter/INHOUSE_BOT_RIOT_API_KEY",
+          "name": "INHOUSE_BOT_RIOT_API_KEY"
         },
         {
-          "valueFrom": "arn:aws:secretsmanager:us-west-2:646717423341:secret:INHOUSE_BOT_RIOT_API_KEY-dvYl0V:TOKEN::",
-          "name": "INHOUSE_BOT_RIOT_API_KEY"
+          "valueFrom": "arn:aws:ssm:us-west-2:646717423341:parameter/INHOUSE_BOT_TOKEN",
+          "name": "INHOUSE_BOT_TOKEN"
         }
       ],
       "dockerSecurityOptions": null,
@@ -164,7 +164,7 @@
     "cpuArchitecture": null
   },
   "cpu": "2048",
-  "revision": 1,
+  "revision": 5,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,

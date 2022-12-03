@@ -1,16 +1,14 @@
-from typing import Optional, List, Tuple
+from typing import Optional, List
 
 import sqlalchemy
 from discord import TextChannel
 from discord.ext.commands import Bot
 from sqlalchemy import func
-from inhouse_bot.common_utils.fields import RoleEnum
 
 from inhouse_bot.database_orm import (
     ChannelInformation,
     session_scope,
     Player,
-    PlayerRating,
     Game,
     GameParticipant,
 )
@@ -35,10 +33,17 @@ class RankingChannelHandler:
     def get_server_ranking_channels(self, server_id: int) -> List[int]:
         return [c.id for c in self._ranking_channels if c.server_id == server_id]
 
-    def mark_ranking_channel(self, channel_id, server_id):
+    def is_ranking_channel(self, channel_id: int) -> bool:
+        return channel_id in self.ranking_channel_ids
+
+    def mark_ranking_channel(self, channel_id: int, server_id):
         """
-        Marks the given channel + server combo as a queue
+        Marks the given channel + server combo as a queue. Returns True if the channel was not already marked
         """
+
+        if self.is_ranking_channel(channel_id):
+            return
+
         channel = ChannelInformation(
             id=channel_id, server_id=server_id, channel_type="RANKING"
         )
@@ -78,9 +83,7 @@ class RankingChannelHandler:
         ratings = self.get_server_ratings(channel.guild.id, limit=30)
 
         # We need 3 messages because of character limits
-        source = RankingPagesSource(
-            ratings, embed_name_suffix=f"on {channel.guild.name}"
-        )
+        source = RankingPagesSource(ratings, embed_name=channel.guild.name)
 
         new_msgs_ids = set()
         for page in range(0, 3):
@@ -103,9 +106,8 @@ class RankingChannelHandler:
             ratings = (
                 session.query(
                     Player,
-                    PlayerRating.player_server_id,
-                    PlayerRating.mmr,
-                    PlayerRating.role,
+                    Player.server_id,
+                    GameParticipant.role,
                     func.count().label("count"),
                     (
                         sqlalchemy.func.sum(
@@ -118,17 +120,15 @@ class RankingChannelHandler:
                     ),  # A bit verbose for sure
                 )
                 .select_from(Player)
-                .join(PlayerRating)
                 .join(GameParticipant)
                 .join(Game)
                 .filter(Player.server_id == server_id)
                 .filter(Game.winner != None)  # No currently running game
-                .group_by(Player, PlayerRating)
-                .order_by(PlayerRating.mmr.desc())
+                .group_by(Player, GameParticipant.role)
             )
 
             if role:
-                ratings = ratings.filter(PlayerRating.role == role)
+                ratings = ratings.filter(GameParticipant.role == role)
 
             ratings = ratings.limit(limit).all()
 

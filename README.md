@@ -7,48 +7,25 @@ A Discord bot to handle League of Legends in-house games, with role queue, match
 
 This is a fork of [inhouse_bot](https://github.com/mrtolkien/inhouse_bot). The original project is no longer maintained, so I'm using this repo to develop new features.
 
-## Running the app
- 
- 1. Install [Docker](https://docs.docker.com/get-docker/)
- 2. Activate your bot on the Discord developer portal and give it the Server Members privileged intent: [Video](http://www.youtube.com/watch?v=TksVS8PE2fw    "Youtube Video")
- 
- 3. In github, go: profile in top right -> Settings -> Developer settings -> Personal Access Tokens -> Generate new token:
-    
-    a. Name to indicate personal access token
-    
-    b. Select ```(write:packages and read:packages and delete:packages)```
-    
-    c. Generate token
-    
-    d. Copy token value
- 
- 4. In terminal do the following:
-    
-    a. export CR_PAT=```{your_token_value}```
-    
-    b. ```echo $CR_PAT | docker login ghcr.io {github_user_name} --password-stdin```
-    
-    c. After that command, you should get (login succeeded)
+## Setting up the bot
 
-5. In docker.compose yml, replace all the values as needed:
-    
-    a. INHOUSE_BOT_TOKEN = ```{token of discord bot}```
-    
-    b. INHOUSE_BOT_RIOT_API_KEY = ```{riot api key}```
-    
-    c. POSTGRES_PASSWORD: = ```{postgres password}``` -- can be anything.
-    
-    d. And for all the emojis copy over the values of the pictures you get from your discord server
- 
- 6. ```docker compose build ```
+1. Install [Docker](https://docs.docker.com/get-docker/)
+2. Activate your bot on the Discord developer portal and give it the Server Members and Message Content privileged intents: [Video](http://www.youtube.com/watch?v=TksVS8PE2fw   "Youtube Video")
+3. In docker.compose yml, replace all the values as needed:
+    - INHOUSE_BOT_TOKEN = ```{token of discord bot}```
+    - INHOUSE_BOT_RIOT_API_KEY = ```{riot api key}```
+    - POSTGRES_PASSWORD: = ```{postgres password}```
+4. Run ```docker compose build ```
+5. Run ```docker compose up -d```
+6. The bot should be running now
+7. Create a new text channel for queuing and mark it with `!admin mark queue`
+8. You are finished :smiley:
 
- 7. ```docker compose up -d```, at this point the application should be running
-
-# How Algorithm Works
+# How the matchmaking algorithm works
 1. Generate all possible teams with players in queue
-2. Get each players summoner rift rank (Solo/Duo)
+2. Get each players summoner rift rank (Solo/Duo or Flex(if no solo duo rank is available))
 3. Get rank value for Team A and Team B
-4. Attempt to find the smallest difference amongst Team A and Team B
+4. Attempt to find the smallest difference amongst Team A and Team B and on a lane to lane matchup
 5. Do this for all teams generated
 
 **Potential Drawbacks To This Algorithm**:
@@ -91,6 +68,8 @@ This is a fork of [inhouse_bot](https://github.com/mrtolkien/inhouse_bot). The o
 - `!cancel` cancels your ongoing game, requiring validation from at least 6 players in the game
 
 # Admin features
+- `!admin mark` marks a text channel as a Queue or Ranking channel
+
 - `!admin reset @user` removes the user from all queues (his name or discord ID work too)
 
 - `!admin reset #channel` resets the queue in the given channel (or the current channel with `!admin reset`)

@@ -38,10 +38,10 @@ async def find_team_and_lane_mmr(team: List[GameParticipant]) -> GameInfo:
         "DIAMONDIV": 2300,
         "DIAMONDIII": 2350,
         "DIAMONDII": 2450,
-        "DIAMONDI": 2500,
-        "MASTERI": 2750,
-        "GRANDMASTERI": 3000,
-        "CHALLENGERI": 3250,
+        "DIAMONDI": 2750,
+        "MASTERI": 2900,
+        "GRANDMASTERI": 3100,
+        "CHALLENGERI": 3400,
     }
 
     laneMMR = {(side, role): 0 for side in SideEnum for role in RoleEnum}
